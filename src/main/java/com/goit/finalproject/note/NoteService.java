@@ -1,7 +1,6 @@
 package com.goit.finalproject.note;
 
 import com.goit.finalproject.access.Access;
-import com.goit.finalproject.user.User;
 import com.goit.finalproject.user.UserDto;
 import com.goit.finalproject.user.UserMapper;
 import com.goit.finalproject.user.UserService;
