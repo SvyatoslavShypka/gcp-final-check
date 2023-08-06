@@ -51,7 +51,7 @@
    </div>
 
    <div th:unless="${#lists.isEmpty(notes)}">
-       <h2 th:text="'My notes - ' + ${notes.size()}"></h2>
+       <h2 th:text="'My notes ------------------------------------ ' + ${notes.size()}"></h2>
        <div class="d-grid gap-2 col-6 mx-auto">
            <a href="/note/create" class="btn btn-dark">Create new note</a>
        </div>
