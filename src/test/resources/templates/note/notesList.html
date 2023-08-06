@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>My Notes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            display: flex;
+            flex-direction: column;
+<!--            align-items: center;-->
+            padding: 2% 0;
+            text-align: center;
+        }
+
+<!--        .button {-->
+<!--            background-color: #ffffff;-->
+<!--            border-radius: 5px;-->
+<!--            color: black;-->
+<!--            padding: 10px 20px;-->
+<!--            text-align: center;-->
+<!--            text-decoration: none;-->
+<!--            display: inline-block;-->
+<!--            font-size: 16px;-->
+<!--            margin: 4px 2px;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+
+<!--        ul {-->
+<!--            list-style-type: none;-->
+<!--            padding: 0;-->
+<!--        }-->
+            .inline{
+                display: inline;
+            }
+    </style>
+</head>
+
+<body>
+   <div th:if="${#lists.isEmpty(notes)}">
+       <h2>Sorry, you have no notes</h2>
+       <div class="d-grid gap-2 col-6 mx-auto">
+          <a href="/note/create" class="btn btn-dark mx-auto">Create</a>
+       </div>
+   </div>
+
+   <div th:unless="${#lists.isEmpty(notes)}">
+       <h2 th:text="'My notes - ' + ${notes.size()}"></h2>
+       <div class="d-grid gap-2 col-6 mx-auto">
+           <a href="/note/create" class="btn btn-dark">Create new note</a>
+       </div>
+       <table class="table mt-5">
+           <thead class="table-light">
+               <tr>
+                   <th>Title</th>
+                   <th>Content</th>
+                   <th>Access</th>
+                   <th>Action</th>
+               </tr>
+           </thead>
+           <tbody>
+               <tr th:each="note: ${notes}">
+                   <td th:text="${note.title}"></td>
+                   <td th:text="${note.content}"></td>
+                   <td th:text="${note.access}"></td>
+                   <td class="inline">
+                       <a th:href="'/note/edit/' + ${note.id}" class="btn btn-sm btn-outline-dark">Edit</a>
+                       <a th:href="'/note/share/' + ${note.id}" class="btn btn-sm btn-outline-dark">Share</a>
+                       <form th:action="@{/note/delete/{id}(id=${note.id})}" method="POST" >
+                           <button class="btn btn-sm btn-outline-dark mt-2" type="submit">Delete</button>
+                       </form>
+                   </td>
+               </tr>
+           </tbody>
+       </table>
+   </div>
+<!--<button class="button" onclick="window.location.href='/noteCreate.html'">Add</button>-->
+
+<!--<script>-->
+<!--        function editNoteFunction(noteId) {-->
+<!--            window.location.href = '/edit.html?noteId=' + noteId;-->
+<!--        }-->
+
+<!--        function shareNoteFunction(noteId) {-->
+<!--            alert('Note with ID: ' + noteId + ' shared!');-->
+<!--        }-->
+
+<!--        function deleteNoteFunction(noteId) {-->
+<!--            if (confirm('Are you sure you want to delete this note?')) {-->
+<!--                fetch(`/note/${noteId}`, {-->
+<!--                    method: 'DELETE'-->
+<!--                }).then(response => {-->
+<!--                    if (response.ok) {-->
+<!--                        alert('Note deleted successfully!');-->
+<!--                        location.reload(); // Щоб оновити список нотаток після видалення-->
+<!--                    } else {-->
+<!--                        alert('Error deleting the note.');-->
+<!--                    }-->
+<!--                });-->
+<!--            }-->
+<!--        }-->
+<!--</script>-->
+</body>
+</html>

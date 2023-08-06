@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Note</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            text-align: center;
+        }
+        .note-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        .note-form input, .note-form textarea, .note-form button {
+            margin-bottom: 15px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+<h2>Edit Note</h2>
+
+<form th:action="@{/note/edit/{id}(id=${note.id})}" method="POST" class="note-form">
+    <input type="hidden" name="id" th:value="${note.id}">
+
+    <label for="noteTitle">Note title:</label>
+    <input type="text" id="noteTitle" th:value="${note.title}" name="title">
+
+    <label for="noteContent">Content:</label>
+    <textarea id="noteContent" rows="5" name="content" th:text="${note.content}"></textarea>
+
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" th:checked="${noteAccess ? false : true}" name="access" id="inlineRadio1" value="private">
+        <label class="form-check-label" for="inlineRadio1">Private</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="access" id="inlineRadio2" th:checked="${noteAccess}" value="public">
+        <label class="form-check-label" for="inlineRadio2">Public</label>
+    </div>
+
+    <div class="buttons">
+        <button type="submit" class="pure-button pure-button-primary">Save Changes</button>
+        <button class="pure-button pure-button-primary" onclick="window.location.href='/note/list'">Cancel</button>
+    </div>
+</form>
+</body>
+</html>
