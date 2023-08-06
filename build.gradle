@@ -3,6 +3,7 @@ plugins {
     id 'checkstyle'
     id 'org.springframework.boot' version '3.1.1'
     id 'io.spring.dependency-management' version '1.1.2'
+    id 'com.google.cloud.tools.jib' version '3.3.2'
 }
 
 group = 'com.goit'
@@ -10,6 +11,12 @@ version = '0.0.1-SNAPSHOT'
 
 java {
     sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
@@ -25,17 +32,24 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation 'org.springframework.cloud:spring-cloud-gcp-starter-logging:1.2.8.RELEASE'
+    implementation 'com.google.cloud:google-cloud-core:2.20.0'
+
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.h2database:h2'
-    runtimeOnly 'org.postgresql:postgresql'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'com.h2database:h2:2.1.214'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+}
 
-    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
-    annotationProcessor 'org.projectlombok:lombok'
-    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+jib {
+    to {
+        image = "gcr.io/\$PROJECT_ID/microservice-template:manual"
+    }
 }
 
 tasks.named('test') {
