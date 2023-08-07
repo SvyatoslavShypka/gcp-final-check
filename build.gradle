@@ -35,7 +35,7 @@ dependencies {
 
     implementation 'org.springframework.cloud:spring-cloud-gcp-starter-logging:1.2.8.RELEASE'
     implementation 'com.google.cloud:google-cloud-core:2.20.0'
-    implementation 'com.google.cloud.sql:postgres-socket-factory:1.13.1'
+//    implementation 'com.google.cloud.sql:postgres-socket-factory:1.13.1'
 
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
